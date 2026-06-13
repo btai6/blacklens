@@ -3,7 +3,7 @@
 BLACK LENS — 台灣醫美論壇自動化系統
 - 8 板塊首頁：S.O.S / FaceCon / Mirage / FairyFace / FoulPlay / 納斯達坑 / Leek Factory / SALON
 - 四版主分工:
-    Scholar     → S.O.S       (3AM顏值急診室 · 術後安心科普)
+    Scholar     → S.O.S       (3AM顏值急診 · 術後安心科普)
     渡鴉        → FaceCon     (韭菜榨汁機 · 成分與儀器拆解)
     Trilobite   → Mirage      (審美消費觀察 · 圈內荒謬與假設情境)
     Sword Smith → FairyFace   (畫皮五千年 · 美容歷史與成分崇拜)
@@ -403,7 +403,7 @@ AU_COMMENT_STYLE = """澳洲二代留學生風格:
 PERSONAS = {
     "Scholar": {
         "title": "版主",
-        "domain": "S.O.S 3AM顏值急診室 · 術後安心科普",
+        "domain": "S.O.S 3AM顏值急診 · 術後安心科普",
         "personality": (
             "你是一位執業多年的家醫科兼醫美護理顧問,溫和、有耐性、見過太多術後半夜恐慌"
             "搜尋的女生衝進診所或私訊LINE。你的口氣像一位真正能信任的姐姐——專業但不冷峻,"
@@ -554,7 +554,7 @@ PERSONA_TO_CAT = {
 # 各版主領域對應的策劃題
 # ============================================================
 CURATED_TOPICS = [
-    # S.O.S 3AM顏值急診室
+    # S.O.S 3AM顏值急診
     "皮秒打完第三天整臉大反黑怎麼辦",
     "肉毒打完一個禮拜眉毛壓眼像生氣還有救嗎",
     "玻尿酸打下巴好像歪了可以自己捏回來嗎",
@@ -582,7 +582,7 @@ CURATED_TOPICS = [
 
 # 原創題庫(對應四版主領域,八板塊內容素材池)
 ORIGINAL_TOPICS = [
-    # S.O.S 3AM顏值急診室
+    # S.O.S 3AM顏值急診
     "雷射除斑結痂提早摳掉會留疤嗎",
     "嘴唇打完玻尿酸腫得像香腸幾天會退",
     "抽脂完第二週大腿凹凸不平要不要回診",
@@ -619,7 +619,7 @@ ORIGINAL_TOPICS = [
 
 # 種子池(六爺發想起點,衍生用)
 SEED_TOPICS = [
-    # S.O.S 3AM顏值急診室 系列
+    # S.O.S 3AM顏值急診 系列
     "你以為的小狀況可能是恢復期偏離正軌的早期訊號",
     "醫師看不出來的不是技術不好是你沒講清楚",
     "保養品的酸度比你想得更不可逆",
@@ -2006,7 +2006,7 @@ def generate_html(articles, videos=None, new_articles=None):
     articles_json = json.dumps(enriched, ensure_ascii=False).replace("</", "<\\/")
     videos_json = json.dumps(videos, ensure_ascii=False).replace("</", "<\\/")
     categories = [
-        {"key": "sos",       "name": "S.O.S",        "en": "3AM顏值急診室"},
+        {"key": "sos",       "name": "S.O.S",        "en": "3AM顏值急診"},
         {"key": "facecon",   "name": "FaceCon",      "en": "韭菜榨汁機"},
         {"key": "mirage",    "name": "Mirage",       "en": "審美消費觀察"},
         {"key": "fairyface", "name": "FairyFace",    "en": "畫皮五千年"},
