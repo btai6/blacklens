@@ -559,7 +559,9 @@ PERSONAS = {
         ),
         "rss_feeds": [
             "https://www.realself.com/rss/recent",
-            "https://www.allure.com/feed/rss",
+            "https://seoulguidemedical.com/feed",
+            "https://jwbeauty.net/category/blog/feed",
+            "https://seoulcosmeticsurgery.com/feed",
             "https://www.aad.org/rss/news.xml",
         ],
         "reddit_subs": ["PlasticSurgery", "30PlusSkinCare", "SkincareAddiction"],
@@ -584,7 +586,9 @@ PERSONAS = {
         ),
         "rss_feeds": [
             "https://www.realself.com/rss/recent",
-            "https://incidecoder.com/rss",
+            "https://seoulguidemedical.com/feed",
+            "https://jwbeauty.net/category/blog/feed",
+            "https://seoulcosmeticsurgery.com/feed",
             "https://www.cosmeticsdesign.com/rss",
         ],
         "reddit_subs": ["30PlusSkinCare", "SkincareAddiction", "PlasticSurgery"],
@@ -619,8 +623,10 @@ PERSONAS = {
         ),
         "rss_feeds": [
             "https://www.allure.com/feed/rss",
+            "https://seoulguidemedical.com/feed",
+            "https://jwbeauty.net/category/blog/feed",
+            "https://seoulcosmeticsurgery.com/feed",
             "https://www.byrdie.com/rss",
-            "https://www.refinery29.com/en-us/rss.xml",
         ],
         "reddit_subs": ["PlasticSurgery", "MakeupAddiction", "AsianBeauty"],
         "writing_focus": "醫美圈荒謬消費生態的第三視角觀察、網紅假評測、極端整形奇觀、假設性瞎編情境(明確標示是假設);真實案例用轉述方式帶進來,不寫成親身經歷;不提及台灣診所或品牌名稱;不嘲諷讀者",
@@ -651,6 +657,8 @@ PERSONAS = {
         "rss_feeds": [
             "https://www.smithsonianmag.com/rss/science-nature/",
             "https://www.atlasobscura.com/rss",
+            "https://seoulguidemedical.com/feed",
+            "https://jwbeauty.net/category/blog/feed",
             "https://www.history.com/.rss/full/",
         ],
         "reddit_subs": ["AskHistorians", "history", "todayilearned"],
