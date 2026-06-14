@@ -584,7 +584,7 @@ PERSONAS = {
             "https://www.cosmeticsdesign.com/rss",
         ],
         "reddit_subs": ["30PlusSkinCare", "SkincareAddiction", "PlasticSurgery"],
-        "writing_focus": "成分與成本拆解、各國定價差異、行銷話術的邏輯漏洞、半真半假論證的結構;機器只用原廠英文名;不提及台灣診所或品牌名稱;不嘲諷讀者;全文不超過330字，超過就是失敗",
+        "writing_focus": "成分與成本拆解、各國定價差異、行銷話術的邏輯漏洞、半真半假論證的結構;機器只用原廠英文名;不提及台灣診所或品牌名稱;不嘲諷讀者;全文不超過800字，超過就是失敗",
     },
     "Trilobite": {
         "title": "版主",
