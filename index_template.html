@@ -172,6 +172,7 @@ a { color: inherit; text-decoration: none; }
 /* ============= 問答窗口 ============= */
 .qa-wrap {
   margin: 0 0 0.8rem;
+  max-width: 360px;
 }
 .qa-inner {
   display: flex;
@@ -227,6 +228,9 @@ a { color: inherit; text-decoration: none; }
   border: 1px solid var(--line);
   border-top: none;
   background: var(--bg-soft);
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  user-select: text;
 }
 @media (max-width: 600px) {
   .qa-prefix { font-size: 0.68rem; padding: 0 0.6rem; }
@@ -1298,7 +1302,7 @@ a { color: inherit; text-decoration: none; }
       +   '<div class="qa-inner">'
       +     '<span class="qa-prefix">有問題直接問</span>'
       +     '<input id="qa-input" class="qa-input" type="text" maxlength="150" placeholder="術後有問題？直接問…" autocomplete="off">'
-      +     '<button id="qa-btn" class="qa-btn" onclick="window.BT.askQA()">問</button>'
+      +     '<button id="qa-btn" class="qa-btn" onclick="window.BT.askQA()">發送</button>'
       +   '</div>'
       +   '<div id="qa-answer" class="qa-answer" hidden></div>'
       + '</div>'
@@ -1733,7 +1737,7 @@ a { color: inherit; text-decoration: none; }
     btn.disabled = true;
     btn.textContent = '…';
     answerDiv.hidden = false;
-    answerDiv.textContent = '問中…';
+    answerDiv.textContent = '稍等…';
     try {
       const resp = await fetch(QA_ENDPOINT, {
         method: 'POST',
@@ -1749,7 +1753,7 @@ a { color: inherit; text-decoration: none; }
         if (_qaOverCount <= 1) {
           answerDiv.textContent = QA_OVER_1[Math.floor(Math.random() * QA_OVER_1.length)];
         } else {
-          answerDiv.textContent = QA_OVER_2;
+          answerDiv.innerHTML = '想聊更多去加我 👉 <a href="https://line.me/R/ti/p/@939bxqsf" target="_blank" style="color:var(--accent);">點我加入</a>';
         }
       }
     } catch (e) {
