@@ -171,14 +171,15 @@ a { color: inherit; text-decoration: none; }
 
 /* ============= 問答窗口 ============= */
 .qa-wrap {
-  margin: 0 0 0.8rem;
   max-width: 360px;
+  margin: 0 auto 0.8rem;
 }
 .qa-inner {
   display: flex;
   align-items: stretch;
   border: 1px solid var(--line);
   background: white;
+  overflow: hidden;
 }
 .qa-prefix {
   font-family: var(--serif-tc);
@@ -191,9 +192,11 @@ a { color: inherit; text-decoration: none; }
   align-items: center;
   white-space: nowrap;
   background: var(--bg-soft);
+  flex-shrink: 0;
 }
 .qa-input {
   flex: 1;
+  min-width: 0;
   border: none;
   background: transparent;
   padding: 0.55rem 0.75rem;
@@ -203,6 +206,8 @@ a { color: inherit; text-decoration: none; }
   outline: none;
   -webkit-user-select: text;
   user-select: text;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .qa-input::placeholder { color: var(--ink-muted); }
 .qa-btn {
@@ -216,6 +221,7 @@ a { color: inherit; text-decoration: none; }
   cursor: pointer;
   transition: background 0.2s;
   white-space: nowrap;
+  flex-shrink: 0;
 }
 .qa-btn:hover { background: var(--accent); }
 .qa-btn:disabled { background: var(--ink-muted); cursor: not-allowed; }
