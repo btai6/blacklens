@@ -1753,7 +1753,7 @@ a { color: inherit; text-decoration: none; }
         if (_qaOverCount <= 1) {
           answerDiv.textContent = QA_OVER_1[Math.floor(Math.random() * QA_OVER_1.length)];
         } else {
-          answerDiv.textContent = QA_OVER_2;
+          answerDiv.innerHTML = '想聊更多去加我 👉 <a href="https://line.me/R/ti/p/@939bxqsf" target="_blank" style="color:var(--accent);">點我加入</a>';
         }
       }
     } catch (e) {
