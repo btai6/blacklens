@@ -1730,8 +1730,15 @@ a { color: inherit; text-decoration: none; }
 
   // ============= 問答窗口 =============
   const QA_ENDPOINT = 'https://line-dnuk.onrender.com/ask';
-  const QA_OVER_1 = ['好累了，明天再來找我吧', '三個問題了，好像沒那麼嚴重，去睡覺吧'];
-  const QA_OVER_2 = '想聊更多去加我 👉 https://line.me/R/ti/p/@939bxqsf';
+  const QA_LINE = 'https://line.me/R/ti/p/@939bxqsf';
+  const QA_OVER_MSGS = [
+    '好累了，明天再來找我吧 👉 <a href="' + QA_LINE + '" target="_blank" style="color:var(--accent);">點我繼續聊</a>',
+    '三個問題了，好像沒那麼嚴重，去睡覺吧 👉 <a href="' + QA_LINE + '" target="_blank" style="color:var(--accent);">點我繼續聊</a>',
+    '好巧啊，你也在等紅綠燈啊 👉 <a href="' + QA_LINE + '" target="_blank" style="color:var(--accent);">點我繼續聊</a>',
+    '今天你終於可以獨立玩手機了嗎 👉 <a href="' + QA_LINE + '" target="_blank" style="color:var(--accent);">點我繼續玩</a>',
+    '戚家三少奶奶很欣賞你的文采 👉 <a href="' + QA_LINE + '" target="_blank" style="color:var(--accent);">點我繼續聊</a>',
+    '真是樣本級別的台灣人 👉 <a href="' + QA_LINE + '" target="_blank" style="color:var(--accent);">點我繼續聊</a>',
+  ];
   let _qaOverCount = 0;
 
   async function askQA() {
@@ -1756,11 +1763,7 @@ a { color: inherit; text-decoration: none; }
         input.value = '';
       } else {
         _qaOverCount++;
-        if (_qaOverCount <= 1) {
-          answerDiv.textContent = QA_OVER_1[Math.floor(Math.random() * QA_OVER_1.length)];
-        } else {
-          answerDiv.innerHTML = '還沒問完？去這裡我幾乎都在 👉 <a href="https://line.me/R/ti/p/@939bxqsf" target="_blank" style="color:var(--accent);">點我</a>';
-        }
+        answerDiv.innerHTML = QA_OVER_MSGS[Math.floor(Math.random() * QA_OVER_MSGS.length)];
       }
     } catch (e) {
       answerDiv.textContent = '剛剛有點忙，等一下再問我';
