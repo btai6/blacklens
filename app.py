@@ -2057,6 +2057,10 @@ def generate_rss_xml(articles, max_items=20):
 
 def write_static_articles(enriched_articles):
     os.makedirs(ARTICLES_DIR, exist_ok=True)
+    # 先確保所有文章都有 slug
+    for a in enriched_articles:
+        if a:
+            ensure_article_slug(a)
     written = []
     for a in enriched_articles:
         if not a:
@@ -2067,14 +2071,14 @@ def write_static_articles(enriched_articles):
                 r for r in enriched_articles
                 if r and r is not a
                 and r.get("persona") == a.get("persona")
-                and r.get("slug") and r.get("title")
+                and r.get("title")
             ]
             same_cat = [
                 r for r in enriched_articles
                 if r and r is not a
                 and r.get("cat") == a.get("cat")
                 and r not in same_persona
-                and r.get("slug") and r.get("title")
+                and r.get("title")
             ]
             related = (same_persona + same_cat)[:3]
 
