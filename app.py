@@ -1848,7 +1848,7 @@ def make_article_keywords(article):
     return ", ".join(extra + base_kws)
 
 
-def generate_article_page(article):
+def generate_article_page(article, related_articles=None):
     slug = ensure_article_slug(article)
     canonical = f"{SITE_BASE_URL}/{ARTICLES_DIR}/{slug}/"
 
@@ -1883,27 +1883,60 @@ def generate_article_page(article):
     # BLACK LENS沿用「不附出處」原則
     source_block = ""
 
-    title_json = title.replace('"', '\\"').replace('\\', '\\\\')
-    desc_json = description.replace('"', '\\"').replace('\\', '\\\\')
+    # 相關文章區塊
+    TYPE_PREFIX_MAP = {
+        "discussion": "觀察",
+        "original":   "原創",
+        "monitor":    "觀察",
+        "naspit":     "測評",
+    }
+    if related_articles:
+        items_html = ""
+        for r in related_articles[:3]:
+            r_slug = r.get("slug", "")
+            r_title = html.escape(r.get("title", ""))
+            r_persona = html.escape(r.get("persona", ""))
+            r_prefix = html.escape(TYPE_PREFIX_MAP.get(r.get("type", ""), "觀察"))
+            r_cat = r.get("cat", "")
+            r_cat_name = html.escape(cat_name_map.get(r_cat, ""))
+            r_href = f"/{ARTICLES_DIR}/{r_slug}/"
+            items_html += (
+                f'<li class="related-item">'
+                f'<a href="{r_href}">'
+                f'<div class="related-item-meta">{r_prefix} · {r_cat_name} · {r_persona}</div>'
+                f'<div class="related-item-title">{r_title}</div>'
+                f'</a></li>'
+            )
+        related_block = (
+            '<div class="related">'
+            '<div class="related-label">More from BLACK LENS</div>'
+            f'<ul class="related-list">{items_html}</ul>'
+            '</div>'
+        )
+    else:
+        related_block = ""
+
+    title_json = title.replace('"', '\\"')
+    desc_json = description.replace('"', '\\"')
 
     page = (ARTICLE_PAGE_TEMPLATE
-            .replace("{{TITLE}}",         html.escape(title))
-            .replace("{{TITLE_JSON}}",    title_json)
-            .replace("{{DESCRIPTION}}",   html.escape(description))
-            .replace("{{DESCRIPTION_JSON}}", desc_json)
-            .replace("{{KEYWORDS}}",      html.escape(keywords))
-            .replace("{{CANONICAL}}",     html.escape(canonical))
-            .replace("{{CANONICAL_JS}}",  canonical.replace("'", ""))
-            .replace("{{SITE_BASE}}",     SITE_BASE_URL)
-            .replace("{{ISO_TIME}}",      iso_time)
-            .replace("{{PERSONA}}",       html.escape(persona))
-            .replace("{{PREFIX}}",        html.escape(prefix))
-            .replace("{{CAT_NAME}}",      html.escape(cat_name))
-            .replace("{{TIMESTAMP}}",     html.escape(timestamp))
-            .replace("{{CONTENT_HTML}}",  content_html)
-            .replace("{{SOURCE_BLOCK}}",  source_block))
+            .replace("{{TITLE}}",              html.escape(title))
+            .replace("{{TITLE_JSON}}",         title_json)
+            .replace("{{DESCRIPTION}}",        html.escape(description))
+            .replace("{{DESCRIPTION_JSON}}",   desc_json)
+            .replace("{{KEYWORDS}}",           html.escape(keywords))
+            .replace("{{CANONICAL}}",          html.escape(canonical))
+            .replace("{{CANONICAL_JS}}",       canonical.replace("'", ""))
+            .replace("{{SITE_BASE}}",          SITE_BASE_URL)
+            .replace("{{ISO_TIME}}",           iso_time)
+            .replace("{{PERSONA}}",            html.escape(persona))
+            .replace("{{PREFIX}}",             html.escape(prefix))
+            .replace("{{CAT_NAME}}",           html.escape(cat_name))
+            .replace("{{TIMESTAMP}}",          html.escape(timestamp))
+            .replace("{{CONTENT_HTML}}",       content_html)
+            .replace("{{SOURCE_BLOCK}}",       source_block)
+            .replace("{{RELATED_ARTICLES}}",   related_block))
     return slug, page
-
 
 def generate_sitemap_xml(articles):
     today_iso = datetime.now().strftime("%Y-%m-%d")
@@ -1948,6 +1981,80 @@ def generate_robots_txt():
     )
 
 
+# ============================================================
+# RSS feed 生成
+# ============================================================
+def generate_rss_xml(articles, max_items=20):
+    """生成標準 RSS 2.0 feed，供訂閱器和未來 LINE 推播使用"""
+    from email.utils import formatdate
+    import calendar
+
+    now_rfc = formatdate(usegmt=True)
+    lines = [
+        '<?xml version="1.0" encoding="UTF-8"?>',
+        '<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">',
+        '<channel>',
+        f'  <title>BLACK LENS｜台灣醫美論壇</title>',
+        f'  <link>{SITE_BASE_URL}/</link>',
+        f'  <description>業內人視角觀察醫美光電雷射、微整注射、隆鼻隆乳</description>',
+        f'  <language>zh-TW</language>',
+        f'  <lastBuildDate>{now_rfc}</lastBuildDate>',
+        f'  <atom:link href="{SITE_BASE_URL}/feed.xml" rel="self" type="application/rss+xml"/>',
+    ]
+
+    TYPE_PREFIX_MAP = {
+        "discussion": "觀察",
+        "original":   "原創",
+        "monitor":    "觀察",
+        "naspit":     "測評",
+    }
+
+    count = 0
+    for a in articles:
+        if not a or not a.get("slug") or not a.get("title"):
+            continue
+        if count >= max_items:
+            break
+
+        slug = a["slug"]
+        title = a["title"]
+        persona = a.get("persona", "")
+        a_type = a.get("type", "original")
+        prefix = TYPE_PREFIX_MAP.get(a_type, "觀察")
+        timestamp = a.get("timestamp", "")
+        content_text = a.get("content", "")
+        excerpt = make_article_excerpt(content_text, max_chars=200)
+        link = f"{SITE_BASE_URL}/{ARTICLES_DIR}/{slug}/"
+
+        # 時間轉 RFC 822
+        try:
+            dt = datetime.strptime(timestamp, "%Y-%m-%d %H:%M")
+            pub_date = formatdate(calendar.timegm(dt.timetuple()), usegmt=True)
+        except (ValueError, TypeError):
+            pub_date = now_rfc
+
+        import xml.sax.saxutils as saxutils
+        title_esc = saxutils.escape(f"[{prefix}] {title}")
+        desc_esc = saxutils.escape(excerpt)
+        link_esc = saxutils.escape(link)
+        persona_esc = saxutils.escape(persona)
+
+        lines += [
+            "  <item>",
+            f"    <title>{title_esc}</title>",
+            f"    <link>{link_esc}</link>",
+            f"    <guid isPermaLink=\"true\">{link_esc}</guid>",
+            f"    <description>{desc_esc}</description>",
+            f"    <author>{persona_esc}</author>",
+            f"    <pubDate>{pub_date}</pubDate>",
+            "  </item>",
+        ]
+        count += 1
+
+    lines += ["</channel>", "</rss>"]
+    return "\n".join(lines)
+
+
 def write_static_articles(enriched_articles):
     os.makedirs(ARTICLES_DIR, exist_ok=True)
     written = []
@@ -1955,7 +2062,23 @@ def write_static_articles(enriched_articles):
         if not a:
             continue
         try:
-            slug, page_html = generate_article_page(a)
+            # 相關文章:同版主優先,不夠再補同板塊,排除自己,最多3篇
+            same_persona = [
+                r for r in enriched_articles
+                if r and r is not a
+                and r.get("persona") == a.get("persona")
+                and r.get("slug") and r.get("title")
+            ]
+            same_cat = [
+                r for r in enriched_articles
+                if r and r is not a
+                and r.get("cat") == a.get("cat")
+                and r not in same_persona
+                and r.get("slug") and r.get("title")
+            ]
+            related = (same_persona + same_cat)[:3]
+
+            slug, page_html = generate_article_page(a, related_articles=related)
             article_dir = os.path.join(ARTICLES_DIR, slug)
             os.makedirs(article_dir, exist_ok=True)
             with open(os.path.join(article_dir, "index.html"), "w", encoding="utf-8") as f:
@@ -2410,6 +2533,12 @@ def main():
     with open("robots.txt", "w", encoding="utf-8") as f:
         f.write(generate_robots_txt())
     print(f"  [robots] ✓")
+
+    print(f"  [RSS] 生成中...")
+    rss_xml = generate_rss_xml(seo_articles, max_items=20)
+    with open("feed.xml", "w", encoding="utf-8") as f:
+        f.write(rss_xml)
+    print(f"  [RSS] ✓ feed.xml ({len(rss_xml):,} 字元)")
 
     save_articles_history(all_articles)
 
