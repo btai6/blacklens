@@ -2285,6 +2285,34 @@ def generate_html(articles, videos=None, new_articles=None):
             "naspit_scores": a.get("naspit_scores"),
         })
 
+    # 相關文章:同版主優先,不夠再補同板塊,排除自己,最多3篇
+    # (與 write_static_articles 的邏輯一致,供首頁 SPA 使用)
+    for e in enriched:
+        same_persona = [
+            r for r in enriched
+            if r is not e
+            and r.get("persona") == e.get("persona")
+            and r.get("title")
+        ]
+        same_cat = [
+            r for r in enriched
+            if r is not e
+            and r.get("cat") == e.get("cat")
+            and r.get("persona") != e.get("persona")
+            and r.get("title")
+        ]
+        related_pool = (same_persona + same_cat)[:3]
+        e["related"] = [
+            {
+                "id": r["id"],
+                "title": r["title"],
+                "persona": r["persona"],
+                "cat": r["cat"],
+                "prefix": r["prefix"],
+            }
+            for r in related_pool
+        ]
+
     articles_json = json.dumps(enriched, ensure_ascii=False).replace("</", "<\\/")
     videos_json = json.dumps(videos, ensure_ascii=False).replace("</", "<\\/")
     categories = [
