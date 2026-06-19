@@ -644,6 +644,38 @@ a { color: inherit; text-decoration: none; }
 }
 .source-link a:hover { text-decoration: underline; }
 
+/* ============= 相關文章 ============= */
+.related {
+  margin-top: 3.5rem; padding-top: 2rem;
+  border-top: 4px double var(--ink);
+}
+.related-label {
+  font-family: var(--serif-en); font-style: italic;
+  font-size: 0.8rem; letter-spacing: 0.3em;
+  color: var(--accent); text-transform: uppercase;
+  margin-bottom: 1.5rem;
+}
+.related-list { list-style: none; }
+.related-item {
+  padding: 0.9rem 0;
+  border-bottom: 1px solid var(--line);
+}
+.related-item:last-child { border-bottom: none; }
+.related-item a {
+  display: block; text-decoration: none; color: var(--ink);
+  transition: color 0.2s;
+}
+.related-item a:hover { color: var(--accent); }
+.related-item-meta {
+  font-family: var(--serif-en); font-size: 0.72rem;
+  color: var(--ink-muted); letter-spacing: 0.1em;
+  text-transform: uppercase; margin-bottom: 0.3rem;
+}
+.related-item-title {
+  font-size: 0.98rem; font-weight: 700;
+  line-height: 1.45; letter-spacing: 0.01em;
+}
+
 /* ============= 納斯達坑 ============= */
 .naspit-block {
   margin: 1.5rem 0 2rem;
@@ -1227,6 +1259,11 @@ a { color: inherit; text-decoration: none; }
     return '觀察';
   }
 
+  function catName(catKey) {
+    const c = CAT_MAP[catKey];
+    return c ? c.name : '';
+  }
+
   function articleRow(a, no) {
     return ''
       + '<a class="article-row" href="#/article/' + a.id + '">'
@@ -1676,6 +1713,22 @@ a { color: inherit; text-decoration: none; }
       }, 100);
     }
 
+    // 相關文章區塊
+    var relatedHtml = '';
+    if (a.related && a.related.length) {
+      relatedHtml = '<div class="related">'
+        + '<div class="related-label">More from BLACK LENS</div>'
+        + '<ul class="related-list">'
+        + a.related.map(function(r) {
+            return '<li class="related-item">'
+              + '<a href="#/article/' + r.id + '">'
+              +   '<div class="related-item-meta">' + esc(r.prefix) + ' · ' + esc(catName(r.cat)) + ' · ' + esc(r.persona) + '</div>'
+              +   '<div class="related-item-title">' + esc(r.title) + '</div>'
+              + '</a></li>';
+          }).join('')
+        + '</ul></div>';
+    }
+
     $('view-article').innerHTML = ''
       + '<button class="back-btn" onclick="window.BT.goBackFromArticle()">返回</button>'
       + '<article class="article-full">'
@@ -1688,6 +1741,7 @@ a { color: inherit; text-decoration: none; }
       +   '<div class="content">' + esc(a.content) + '</div>'
       +   sourceHtml
       +   commentsHtml
+      +   relatedHtml
       + '</article>';
   }
 
