@@ -2080,7 +2080,7 @@ def write_static_articles(enriched_articles):
                 and r not in same_persona
                 and r.get("title")
             ]
-            related = (same_persona + same_cat)[:3]
+            related = (same_persona + same_cat)[:1]
 
             slug, page_html = generate_article_page(a, related_articles=related)
             article_dir = os.path.join(ARTICLES_DIR, slug)
@@ -2301,7 +2301,7 @@ def generate_html(articles, videos=None, new_articles=None):
             and r.get("persona") != e.get("persona")
             and r.get("title")
         ]
-        related_pool = (same_persona + same_cat)[:3]
+        related_pool = (same_persona + same_cat)[:1]
         e["related"] = [
             {
                 "id": r["id"],
