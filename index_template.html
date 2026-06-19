@@ -646,18 +646,22 @@ a { color: inherit; text-decoration: none; }
 
 /* ============= 相關文章 ============= */
 .related {
-  margin-top: 2rem; padding-top: 1.5rem;
+  float: right;
+  clear: right;
+  width: 46%;
+  margin: 0.5rem 0 1.5rem 1.5rem;
+  padding-top: 1.2rem;
   border-top: 1px solid var(--line);
 }
 .related-label {
   font-family: var(--serif-en); font-style: italic;
-  font-size: 0.8rem; letter-spacing: 0.3em;
+  font-size: 0.72rem; letter-spacing: 0.25em;
   color: var(--accent); text-transform: uppercase;
-  margin-bottom: 1.5rem;
+  margin-bottom: 0.8rem;
 }
 .related-list { list-style: none; }
 .related-item {
-  padding: 0.9rem 0;
+  padding: 0.6rem 0;
   border-bottom: 1px solid var(--line);
 }
 .related-item:last-child { border-bottom: none; }
@@ -667,13 +671,13 @@ a { color: inherit; text-decoration: none; }
 }
 .related-item a:hover { color: var(--accent); }
 .related-item-meta {
-  font-family: var(--serif-en); font-size: 0.72rem;
-  color: var(--ink-muted); letter-spacing: 0.1em;
-  text-transform: uppercase; margin-bottom: 0.3rem;
+  font-family: var(--serif-en); font-size: 0.65rem;
+  color: var(--ink-muted); letter-spacing: 0.08em;
+  text-transform: uppercase; margin-bottom: 0.25rem;
 }
 .related-item-title {
-  font-size: 0.98rem; font-weight: 700;
-  line-height: 1.45; letter-spacing: 0.01em;
+  font-size: 0.85rem; font-weight: 700;
+  line-height: 1.4; letter-spacing: 0.01em;
 }
 
 /* ============= 納斯達坑 ============= */
@@ -699,6 +703,7 @@ a { color: inherit; text-decoration: none; }
 
 /* ============= 評論 ============= */
 .comments-section {
+  clear: both;
   margin-top: 2.5rem;
   padding-top: 1.5rem;
   border-top: 1px solid var(--line);
