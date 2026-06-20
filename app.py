@@ -1909,7 +1909,7 @@ def generate_article_page(article, related_articles=None):
             )
         related_block = (
             '<div class="related">'
-            '<div class="related-label">More from BLACK LENS</div>'
+            '<div class="related-label">MORE READING</div>'
             f'<ul class="related-list">{items_html}</ul>'
             '</div>'
         )
