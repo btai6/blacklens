@@ -2,9 +2,57 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://blacklens.net/</loc>
-    <lastmod>2026-06-27</lastmod>
+    <lastmod>2026-06-28</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://blacklens.net/articles/20260628-0500-e463b2/</loc>
+    <lastmod>2026-06-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://blacklens.net/articles/20260628-0500-696de7/</loc>
+    <lastmod>2026-06-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://blacklens.net/articles/20260628-0502-4c7bc8/</loc>
+    <lastmod>2026-06-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://blacklens.net/articles/20260628-0502-15c802/</loc>
+    <lastmod>2026-06-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://blacklens.net/articles/20260628-0504-5f3a9f/</loc>
+    <lastmod>2026-06-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://blacklens.net/articles/20260628-0505-4cc087/</loc>
+    <lastmod>2026-06-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://blacklens.net/articles/20260628-0507-617b65/</loc>
+    <lastmod>2026-06-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://blacklens.net/articles/20260628-0508-60d039/</loc>
+    <lastmod>2026-06-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://blacklens.net/articles/20260627-0517-6113ef/</loc>
