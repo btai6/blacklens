@@ -2241,7 +2241,7 @@ def generate_html(articles, videos=None, new_articles=None):
         "monitor": "觀察",
         "naspit": "測評",
     }
-       if new_articles:
+    if new_articles:
         today_titles = [a["title"] for a in new_articles[:3] if a.get("title")]
         if today_titles:
             page_title = f"台灣醫美論壇｜今日觀察:{'、'.join(today_titles)}"
