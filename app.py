@@ -2244,11 +2244,11 @@ def generate_html(articles, videos=None, new_articles=None):
     if new_articles:
         today_titles = [a["title"] for a in new_articles[:3] if a.get("title")]
         if today_titles:
-            page_title = f"BLACK LENS｜今日觀察:{'、'.join(today_titles)}"
+            page_title = f"台灣醫美論壇｜今日觀察:{'、'.join(today_titles)}"
         else:
-            page_title = "BLACK LENS - 台灣醫美論壇"
+            page_title = "台灣醫美論壇｜BLACK LENS"
     else:
-        page_title = "BLACK LENS - 台灣醫美論壇"
+        page_title = "台灣醫美論壇｜BLACK LENS"
 
     # enriched articles
     enriched = []
